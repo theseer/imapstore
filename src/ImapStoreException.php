@@ -1,8 +1,6 @@
 <?php declare(strict_types=1);
 namespace theseer\imapstore;
 
-use Exception;
-
 final class ImapStoreException extends Exception {
     public const CONNECTION_FAILED = 1;
 

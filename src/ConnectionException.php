@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace theseer\imapstore;
 
-class ConnectionException extends \Exception {
+class ConnectionException extends Exception {
     public const CONNECTION_ALREADY_OPEN = 1001;
     public const CONNECTION_FAILED = 1002;
     public const TIMEOUT_SET_FAILED = 1003;

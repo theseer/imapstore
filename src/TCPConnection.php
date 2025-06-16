@@ -14,7 +14,7 @@ final class TCPConnection implements Connection {
     /**
      * @param array<string, array<string, mixed>> $contextOptions
      */
-    public static function create(
+    public static function createPlain(
         string $host,
         int $port = 143,
         array $contextOptions = [],
