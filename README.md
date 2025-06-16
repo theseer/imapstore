@@ -87,7 +87,7 @@ $store->store(
 // For non-TLS connections (not recommended for production)
 // Uses default port 143
 $store = new ImapStore(
-    TCPConnection::create('imap.example.com'),
+    TCPConnection::createPlain('imap.example.com'),
     new LoginAuthenticator('username@example.com', 'password')
 );
 ```
@@ -97,12 +97,12 @@ $store = new ImapStore(
 ```php
 // Using custom ports
 $store = new ImapStore(
-    TCPConnection::createTLS('imap.example.com', 993),
+    TCPConnection::createTLS('imap.example.com', 1993),
     new LoginAuthenticator('username@example.com', 'password')
 );
 
 // Custom connection implementations can be created if needed
-// by implementing the connection interface
+// by implementing the Connection interface
 ```
 
 #### Custom Authentication
@@ -110,7 +110,7 @@ $store = new ImapStore(
 ```php
 // The library currently supports LOGIN authentication
 // Custom authentication methods can be implemented
-// by extending the authentication interface
+// by implementing the Authenticator interface
 
 $customAuth = new CustomAuthenticator($credentials);
 $store = new ImapStore(
@@ -137,17 +137,19 @@ $store->store(
 use PHPMailer\PHPMailer\PHPMailer;
 
 $mail = new PHPMailer();
+
+// ...
+
 $mail->setFrom('sender@example.com', 'John Doe');
 $mail->addAddress('recipient@example.com', 'Jane Smith');
 $mail->Subject = 'Generated Email';
 $mail->Body = 'This email was generated using PHPMailer and stored via ImapStore.';
 
-// Get the raw message data
-$emailData = $mail->getSentMIMEMessage();
+// Potentially sent your mail using PHPMailer here 
 
 // Store it using ImapStore
 $store->store(
-    Message::fromString($emailData),
+    Message::fromString($mail->getSentMIMEMessage()),
     Foldername::fromString('Sent'),
     MessageFlag::SEEN
 );
@@ -163,17 +165,6 @@ The library supports the following message flags that can be set when storing me
 - `MessageFlag::DELETED` - Mark message as deleted
 - `MessageFlag::DRAFT` - Mark message as draft
 
-Multiple flags can be applied using the variadic syntax:
-
-```php
-$store->store(
-    Message::fromString($emailData),
-    Foldername::fromString('INBOX'),
-    MessageFlag::SEEN,
-    MessageFlag::FLAGGED,
-    MessageFlag::ANSWERED
-);
-```
 
 ## Error Handling
 
@@ -204,10 +195,3 @@ try {
 - **[ddeboer/imap](https://github.com/ddeboer/imap)** - Alternative full IMAP client library for reading and managing emails
 - **[PHPMailer](https://github.com/PHPMailer/PHPMailer)** - Ideal for generating properly formatted email messages that can then be stored using ImapStore
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit issues or pull requests.
-
-## Author
-
-Created by Arne Blankerts (@theseer)
