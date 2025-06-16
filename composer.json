@@ -1,0 +1,24 @@
+{
+  "name": "theseer/imapstore",
+  "description": "A simple client to store messages in an imap folder",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Arne Blankerts",
+      "email": "arne@blankerts.de",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/theseer/imapstore/issues"
+  },
+  "require": {
+    "php": "^8.4"
+  },
+  "autoload": {
+    "classmap": ["src/"]
+  },
+  "autoload-dev": {
+    "classmap": ["tests/"]
+  }
+}
