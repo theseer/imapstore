@@ -12,10 +12,6 @@ final readonly class ImapStore {
         private Authenticator $authenticator
     ) {}
 
-    public function __destruct() {
-        $this->connection->close();
-    }
-
     public function store(Message $message, Foldername $folder, MessageFlag ...$flags): void {
         try {
             $this->connection->open();
