@@ -42,7 +42,7 @@ final readonly class ImapStore {
         }
 
         $flagValues = array_map(fn(MessageFlag $flag) => $flag->value, $flags);
-        return ' (' . implode(' \\', $flagValues) . ')';
+        return ' (' . implode(' ', $flagValues) . ')';
     }
 
     private function folderExists(Foldername $folder): bool {
