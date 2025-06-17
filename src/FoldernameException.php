@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace theseer\imapstore;
+namespace TheSeer\ImapStore;
 
 final class FoldernameException extends Exception {
 }

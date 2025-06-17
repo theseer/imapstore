@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace theseer\imapstore;
+namespace TheSeer\ImapStore;
 
 use Throwable;
 use function is_resource;

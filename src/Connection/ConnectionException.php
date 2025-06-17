@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace theseer\imapstore;
+namespace TheSeer\ImapStore;
 
 class ConnectionException extends Exception {
     public const CONNECTION_ALREADY_OPEN = 1001;
