@@ -4,7 +4,7 @@ namespace TheSeer\ImapStore;
 final readonly class Foldername {
 
     public static function fromString(string $name): self {
-        return new self($name);
+        return new self(trim($name));
     }
 
     public function asString(): string {

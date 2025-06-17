@@ -6,7 +6,7 @@ use function strlen;
 final class Message {
 
     public static function fromString(string $content): self {
-        return new self($content);
+        return new self(trim($content));
     }
 
     public int $size {
