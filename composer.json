@@ -13,7 +13,12 @@
     "issues": "https://github.com/theseer/imapstore/issues"
   },
   "require": {
-    "php": "^8.4"
+    "php": "^8.4",
+    "ext-sockets": "*"
+  },
+  "require-dev": {
+    "ext-pcntl": "*",
+    "ext-posix": "*"
   },
   "autoload": {
     "classmap": ["src/"]
