@@ -1,3 +1,4 @@
 /.phpunit.cache/
 /tools/
 /vendor/
+/build/
