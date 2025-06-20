@@ -6,8 +6,6 @@ use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-require __DIR__ . '/mocks/MockConnection.php';
-
 #[CoversClass(ImapStore::class)]
 #[UsesClass(Message::class)]
 #[UsesClass(Foldername::class)]
