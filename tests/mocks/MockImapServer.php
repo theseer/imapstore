@@ -133,8 +133,7 @@ class MockImapServer
             try {
                 $this->handleClient($client);
             } catch (Throwable $e) {
-                // Ignore client errors in production
-                // In development, you might want to log these
+                // Ignore client errors
             }
 
             fclose($client);
@@ -177,7 +176,7 @@ class MockImapServer
     private function processCommand($client, string $tag, string $command): void
     {
         if (str_starts_with($command, 'CAPABILITY')) {
-            $capabilities = "* CAPABILITY IMAP4rev1 AUTH=LOGIN";
+            $capabilities = "* CAPABILITY IMAP4rev1";
             if ($this->supportsStartTls) {
                 $capabilities .= " STARTTLS";
             }
@@ -186,17 +185,6 @@ class MockImapServer
 
         } elseif (str_starts_with($command, 'NOOP')) {
             fwrite($client, "$tag OK NOOP completed\r\n");
-
-        } elseif (str_starts_with($command, 'LOGIN')) {
-            // Simple LOGIN implementation - always succeeds for testing
-            fwrite($client, "$tag OK LOGIN completed\r\n");
-
-        } elseif (str_starts_with($command, 'LIST')) {
-            // Simple LIST implementation - return some sample folders
-            fwrite($client, "* LIST () \".\" \"INBOX\"\r\n");
-            fwrite($client, "* LIST () \".\" \"Sent\"\r\n");
-            fwrite($client, "* LIST () \".\" \"Drafts\"\r\n");
-            fwrite($client, "$tag OK LIST completed\r\n");
 
         } elseif (str_starts_with($command, 'APPEND')) {
             // Send continuation response for APPEND
@@ -212,15 +200,11 @@ class MockImapServer
                 // Pretend STARTTLS is OK, but don't actually enable crypto
                 // This will cause the subsequent stream_socket_enable_crypto to fail
                 fwrite($client, "$tag OK STARTTLS completed\r\n");
-                // Exit loop to let TLS handshake fail in client
+                // Exit to let TLS handshake fail in client
                 return;
             } else {
                 fwrite($client, "$tag BAD STARTTLS not supported\r\n");
             }
-
-        } elseif (str_starts_with($command, 'AUTHENTICATE')) {
-            // Simple AUTHENTICATE implementation - always succeeds for testing
-            fwrite($client, "$tag OK AUTHENTICATE completed\r\n");
 
         } else {
             fwrite($client, "$tag BAD Command not recognized\r\n");
